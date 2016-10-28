@@ -14,9 +14,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.post('/vendors', function (req, res) {
     if (req.body.register) {
+        console.log("registering");
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
-        if (db.saveVendor(req)) 
+        if (db.saveVendor(req))
             res.send("success");
         else res.send("failed");
     }

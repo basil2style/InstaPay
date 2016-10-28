@@ -8,6 +8,8 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
             process.env.OPENSHIFT_APP_NAME;
 }
 
+console.log(mongodb);
+
 var mongojs = require('mongojs'),
 db = mongojs(mongodb);
 db.on('error', function (err) {
@@ -20,6 +22,7 @@ db.on('connect', function () {
 var vendors = db.collection('vendors');
 
 exports.saveVendor = function (req, res) {
+    console.log("IN SAVE VENDOR");
     db.vendors.save({
             name: req.body.name,
             email: req.body.email,
