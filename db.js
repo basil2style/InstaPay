@@ -50,15 +50,13 @@ exports.findVendors = function (callback) {
 }
 
 exports.findVendorByEmail = function (req, callback) {
-    console.log(req);
     db.vendors.findOne({
         email: req.body.email
     }, function(err, doc) {
         if (err || !doc) {
-            console.log(err);
+            console.log("DB ERROR: ", err);
             callback(null, err);
         } else {
-            console.log(doc);
             callback(null, doc);
         }
     });
