@@ -1,5 +1,4 @@
 var mongojs = require('mongojs');
-var crypto = require('crypto');
 
 var mongodb = '127.0.0.1:27017/instapay';
 
@@ -23,14 +22,13 @@ var vendors = db.collection('vendors');
 
 var exports = module.exports;
 exports.saveVendor = function (vendor, callback) {
-    const password = crypto.pbkdf2Sync(vendor.body.password, vendor.body.email, 100000, 512, 'sha512');
     db.vendors.save({
             name: vendor.body.name,
             email: vendor.body.email,
             phone: vendor.body.phone,
             companyName: vendor.body.company_name,
             companyAddr: vendor.body.company_addr,
-            password: password
+            password: vendor.body.password
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Vendor not saved ", err);
@@ -48,5 +46,20 @@ exports.findVendors = function (callback) {
             console.log("DB ERROR: ", err);
             callback(null, err);
         } else callback(null, docs);
+    });
+}
+
+exports.findVendorByEmail = function (req, callback) {
+    console.log(req);
+    db.vendors.findOne({
+        email: req.body.email
+    }, function(err, doc) {
+        if (err || !doc) {
+            console.log(err);
+            callback(null, err);
+        } else {
+            console.log(doc);
+            callback(null, doc);
+        }
     });
 }
