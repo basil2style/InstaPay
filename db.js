@@ -33,11 +33,11 @@ exports.saveVendor = function (req, res) {
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Vendor not saved ", err);
-                return false;
+                res.send(false);
             }
             else {
                 console.log("Vendor saved");
-                return true;
+                res.send(true);
             }
     });
 }
@@ -46,8 +46,8 @@ exports.findVendors = function (req, res) {
     db.vendors.find(function (err, docs) {
         if (err) {
             console.log("DB ERROR: ", err);
-            return null;
+            res.send(null);
         }
-        return docs;
+        res.send(docs);
     });
 }
