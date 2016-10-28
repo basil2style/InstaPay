@@ -1,3 +1,5 @@
+var mongojs = require('mongojs');
+
 var mongodb = '127.0.0.1:27017/instapay';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
@@ -10,7 +12,6 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 console.log(mongodb + '1');
 
-var mongojs = require('mongojs');
 console.log(mongodb + '2');
 var db = mongojs(mongodb);
 console.log(mongodb + '3');
@@ -48,6 +49,7 @@ exports.saveVendor = function (req, res) {
 console.log(mongodb + '6');
 
 exports.findVendors = function (req, res) {
+    console.log("IN SAVE VENDOR");
     db.vendors.find(function (err, docs) {
         if (err) {
             console.log("DB ERROR: ", err);
