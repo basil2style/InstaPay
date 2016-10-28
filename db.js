@@ -1,4 +1,5 @@
 var mongojs = require('mongojs');
+var crypto = require('crypto');
 
 var mongodb = '127.0.0.1:27017/instapay';
 
