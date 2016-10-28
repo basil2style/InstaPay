@@ -1,68 +1,77 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
-    <title>Vendor login</title>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<title>Vendor login</title>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+	<!-- Custom styles for this template -->
+	<link href="https://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 
-  <body>
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
 
-    <div class="container">
+<body>
 
-      <form class="form-signin" method="POST" action="https://instapay-animus.rhcloud.com/vendors">
-        <h2 class="form-signin-heading">Please sign up</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <label for="inputPassword" class="sr-only">Confirm Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Confirm Password" required>
-         <label for="inputEmail" class="sr-only">Company Name</label><br/>
-        <input type="text" id="textCompanyName" class="form-control" placeholder="Company Name" required >
-         <label for="inputEmail" class="sr-only">Phone No.</label><br/>
-        <input type="text" id="textPhonenum" class="form-control" placeholder="Phone number" required >
-        <label for="inputEmail" class="sr-only">Company Address</label><br/>
-        <input type="text" id="textCompanyAdd" class="form-control" placeholder="Company Address" required >
+	<div class="container">
 
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-      </form>
+		<form class="form-signin" method="POST" action="https://instapay-animus.rhcloud.com/vendors">
+			<h2 class="form-signin-heading">Please sign up</h2>
 
-    </div> <!-- /container -->
+      <input name="register" type="hidden" id="register">
 
+			<label for="inputEmail" class="sr-only">Email address</label>
+			<input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+			
+      <label for="inputPassword" class="sr-only">Password</label>
+			<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+			
+      <label for="inputPasswordC" class="sr-only">Confirm Password</label>
+			<input type="password" id="inputPasswordC" class="form-control" placeholder="Confirm Password" required>
+			
+      <label for="inputCompanyName" class="sr-only">Company Name</label>
+			<input name="company_name" type="text" id="inputCompanyName" class="form-control" placeholder="Company Name" required>
+			
+      <label for="inputPhone" class="sr-only">Phone No.</label>
+			<input name="phone" type="tel" id="inputPhone" class="form-control" placeholder="Phone number" required>
+			
+      <label for="inputCompanyAddr" class="sr-only">Company Address</label>
+			<input name="company_addr" type="text" id="inputCompanyAddr" class="form-control" placeholder="Company Address" required>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+			<div class="checkbox">
+				<label>
+					<input name="email" type="checkbox" value="remember-me"> Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+		</form>
+
+	</div>
+	<!-- /container -->
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
 </html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Products - InstaPay</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="css/customize.css" type="text/css">
+
+</head>
+
+<body>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+	<div class="container-fluid">
+		<nav class="navbar navbar-inverse navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">InstaPay</a>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</div>
+	<!-- end container -->
+
+	<div class="container">
+
+		<form class="form-signin" method="POST" action="https://instapay-animus.rhcloud.com/products">
+
+      <input name="product" type="hidden" id="product">
+
+			<h2 class="form-signin-heading">Product Details</h2>
+
+			<label for="inputProductName" class="sr-only">Product Name</label>
+      <input name="product_name" type="text" id="inputProductName" class="form-control" placeholder="Product Name" required autofocus>
+
+      <label for="inputProductID" class="sr-only">Product ID</label>
+      <input name="product_id" type="text" id="inputProductID" class="form-control" placeholder="Product ID" required>
+
+      <label for="inputProductPrice" class="sr-only">Product Price</label>
+      <input name="product_price" type="number" id="inputProductPrice" class="form-control" placeholder="Product Price" required>
+
+		</form>
+		<br/>
+
+	</div>
+	<br/>
+
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Add Product</button>
+	</form>
+
+	</div>
+	<!-- /container -->
+
+</body>
+
+</html>
