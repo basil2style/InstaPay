@@ -10,16 +10,22 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 console.log(mongodb);
 
-var mongojs = require('mongojs'),
-db = mongojs(mongodb);
-db.on('error', function (err) {
+var mongojs = require('mongojs');
+console.log(mongodb);
+var db = mongojs(mongodb);
+console.log(mongodb);
+db.on('error', function (err) {console.log(mongodb);
+
     console.log('DATABASE ERROR: ', err);
 });
-db.on('connect', function () {
+db.on('connect', function () {console.log(mongodb);
+
     console.log('DATABASE CONNECTED');
 });
+console.log(mongodb);
 
 var vendors = db.collection('vendors');
+console.log(mongodb);
 
 exports.saveVendor = function (req, res) {
     console.log("IN SAVE VENDOR");
@@ -32,7 +38,7 @@ exports.saveVendor = function (req, res) {
             password: req.body.password 
         }, function(err, saved) {
             if (err || !saved) {
-                console.log("Vendor not saved " + err);
+                console.log("Vendor not saved ", err);
                 return false;
             }
             else {
@@ -41,11 +47,12 @@ exports.saveVendor = function (req, res) {
             }
     });
 }
+console.log(mongodb);
 
 exports.findVendors = function (req, res) {
     db.vendors.find(function (err, docs) {
         if (err) {
-            console.log("DB ERROR: " + err);
+            console.log("DB ERROR: ", err);
             return null;
         }
         return docs;
