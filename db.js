@@ -36,6 +36,7 @@ exports.saveVendor = function (vendor, callback) {
             }
             else {
                 console.log("Vendor saved");
+                callback(null, saved);
             }
     });
 }
