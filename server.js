@@ -26,7 +26,8 @@ app.post('/vendors', function (req, res) {
 app.get('/vendors', function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
-    res.send(JSON.stringify(db.findVendors(), null, 2));
+    var docs = db.findVendors();
+    res.send(JSON.stringify(docs, null, 2));
 });
 
 app.get('/info', function (req, res) {

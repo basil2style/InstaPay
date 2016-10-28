@@ -48,7 +48,6 @@ exports.findVendors = function (req, res) {
             console.log("DB ERROR: ", err);
             return null;
         }
-        console.log(JSON.stringify(docs));
         return docs;
     });
 }
