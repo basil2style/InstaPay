@@ -21,33 +21,29 @@ db.on('connect', function () {
 var vendors = db.collection('vendors');
 
 var exports = module.exports;
-exports.saveVendor = function (req, res) {
-    console.log("IN SAVE VENDOR");
+exports.saveVendor = function (vendor, callback) {
     db.vendors.save({
-            name: req.body.name,
-            email: req.body.email,
-            phone: req.body.phone,
-            companyName: req.body.company_name,
-            companyAddr: req.body.company_addr,
-            password: req.body.password 
+            name: vendor.body.name,
+            email: vendor.body.email,
+            phone: vendor.body.phone,
+            companyName: vendor.body.company_name,
+            companyAddr: vendor.body.company_addr,
+            password: vendor.body.password
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Vendor not saved ", err);
-                res.send(false);
+                callback(null, err);
             }
             else {
                 console.log("Vendor saved");
-                res.send(true);
             }
     });
 }
-exports.findVendors = function (req, res) {
-    console.log("IN FIND VENDORS");
+exports.findVendors = function (callback) {
     db.vendors.find(function (err, docs) {
         if (err) {
             console.log("DB ERROR: ", err);
-            res.send(null);
-        }
-        res.send(docs);
+            callback(null, err);
+        } else callback(null, docs);
     });
 }

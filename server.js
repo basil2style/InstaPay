@@ -17,17 +17,21 @@ app.post('/vendors', function (req, res) {
         console.log("registering");
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
-        if (db.saveVendor(req))
-            res.send("success");
-        else res.send("failed");
+        db.saveVendor(req, function(err) {
+            if (err) res.send("Error saving vendor: ", err);
+            else res.send("Vendor saved successfully.");
+        });
     }
 });
 
 app.get('/vendors', function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
-    var docs = db.findVendors();
-    res.send(JSON.stringify(docs, null, 2));
+    db.findVendors(function (err, docs) {
+        if (!err)
+            res.send(JSON.stringify(docs, null, 2));
+        else res.send("Error finding vendors: ", err);
+    });
 });
 
 app.get('/info', function (req, res) {
