@@ -22,13 +22,14 @@ var vendors = db.collection('vendors');
 
 var exports = module.exports;
 exports.saveVendor = function (vendor, callback) {
+    const password = crypto.pbkdf2Sync(vendor.body.password, vendor.body.email, 100000, 512, 'sha512');
     db.vendors.save({
             name: vendor.body.name,
             email: vendor.body.email,
             phone: vendor.body.phone,
             companyName: vendor.body.company_name,
             companyAddr: vendor.body.company_addr,
-            password: vendor.body.password
+            password: password
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Vendor not saved ", err);
