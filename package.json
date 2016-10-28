@@ -1,0 +1,32 @@
+{
+  "name": "instapay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryan872/InstaPay.git"
+  },
+  "keywords": [
+    "instant",
+    "payment",
+    "pay",
+    "instapay",
+    "buy"
+  ],
+  "author": "Ryan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryan872/InstaPay/issues"
+  },
+  "homepage": "https://github.com/ryan872/InstaPay#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0"
+  }
+}
