@@ -31,7 +31,7 @@ app.post('/vendors', function (req, res) {
             console.log("DOC: ", doc);
             console.log("DOC: ", req.body.password);
             if (err || !doc) res.send("Vendor not registered ", err);
-            else if (doc.password.Binary.buffer === req.body.password) res.send("Login success.");
+            else if (doc.password.buffer === req.body.password) res.send("Login success.");
             else res.send("Invalid login.");
         });
     }
