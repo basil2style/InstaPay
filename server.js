@@ -7,12 +7,14 @@ bodyParser = require('body-parser');
 crypto = require('crypto'),
 db = require('./db.js');
 
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-    secret: 'session secret key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
 }));
+
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
@@ -20,26 +22,26 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.set('view engine', 'pug');
 
 app.get('/login', function (req, res) {
-    var sess = req.session();
+    var sess = req.session;
     if (sess.email) {
         res.redirect('/product');
     } else res.render('login');
 });
 app.get('/register', function (req, res) {
-    var sess = req.session();
+    var sess = req.session;
     if (sess.email) {
         res.redirect('/product');
     } else res.render('register');
 });
 app.get('/product', function (req, res) {
-    var sess = req.session();
+    var sess = req.session;
     if (!sess.email) {
         res.redirect('/login');
     } else res.render('product');
 });
 
 app.post('/vendor', function (req, res) {
-    var sess = req.session();
+    var sess = req.session;
     if (sess.email) {
         res.redirect('/product');
     }
