@@ -12,6 +12,17 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
+app.set('view engine', 'pug');
+
+app.get('/login', function (req, res) {
+    res.render('login');
+});
+app.get('/register', function (req, res) {
+    res.render('register');
+});
+app.get('/product', function (req, res) {
+    res.render('product');
+});
 
 app.post('/vendors', function (req, res) {
     if (req.body.register) {
@@ -31,16 +42,10 @@ app.post('/vendors', function (req, res) {
                 req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
         db.findVendorByEmail(req, function(err, doc) {
             if (err || !doc) res.send("Vendor not registered ", err);
-            else if (doc.password === req.body.password) res.send("Login success.");
+            else if (doc.password === req.body.password) res.redirect("/product");
             else res.send("Invalid login.");
         });
     }
-});
-
-app.get('/login', function (req, res) {
-    res.setHeader('Content-Type', 'text/htlm');
-    res.status(200);
-    res.render('login.html');
 });
 
 app.get('/info', function (req, res) {
