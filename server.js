@@ -41,11 +41,7 @@ app.get('/product', function (req, res) {
 });
 
 app.post('/vendor', function (req, res) {
-    var sess = req.session;
-    if (sess.email) {
-        res.redirect('/product');
-    }
-    else if (req.body.register) {
+    if (req.body.register) {
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
         req.body.password = new Buffer(crypto.pbkdf2Sync(
@@ -56,28 +52,39 @@ app.post('/vendor', function (req, res) {
         });
     }
     else if (req.body.login) {
-        res.setHeader('Content-Type', 'text/text');
-        res.status(200);
-        req.body.password = new Buffer(crypto.pbkdf2Sync(
-                req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
-        db.findVendorByEmail(req, function(err, doc) {
-            if (err || !doc) res.send("Vendor not registered ", err);
-            else if (doc.password === req.body.password) {
-                sess.email = req.body.email;
-                res.redirect("/product");
-            }
-            else res.send("Invalid login.");
-        });
+        var sess = req.session;
+        if (sess.email) {
+            res.redirect('/product');
+        } else {
+            res.setHeader('Content-Type', 'text/text');
+            res.status(200);
+            req.body.password = new Buffer(crypto.pbkdf2Sync(
+                    req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
+            db.findVendorByEmail(req, function(err, doc) {
+                if (err || !doc) res.send("Vendor not registered ", err);
+                else if (doc.password === req.body.password) {
+                    sess.email = req.body.email;
+                    res.redirect("/product");
+                }
+                else res.send("Invalid login.");
+            });
+        }
     }
 });
 
 app.post('/product', function (req, res) {
-    res.setHeader('Content-Type', 'text/text');
-    res.status(200);
-    db.saveProduct(req, function(err) {
-        if (err) res.send("Error saving product: ", err);
-        else res.send("Product saved successfully.");
-    });
+    var sess = req.session;
+    if (!sess.email) {
+        res.redirect('/login');
+    } else {
+        res.setHeader('Content-Type', 'text/text');
+        res.status(200);
+        req.body.email = sess.email;
+        db.saveProduct(req, function(err) {
+            if (err) res.send("Error saving product: ", err);
+            else res.send("Product saved successfully.");
+        });
+    }
 });
 
 app.get('/info', function (req, res) {

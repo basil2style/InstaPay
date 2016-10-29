@@ -63,6 +63,7 @@ exports.findVendorByEmail = function (req, callback) {
 var products = db.collection('products');
 exports.saveProduct = function (product, callback) {
     db.products.save({
+            vendor: product.body.email,
             pID: product.body.product_id,
             pName: product.body.product_name,
             pPrice: product.body.product_price
