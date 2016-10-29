@@ -19,6 +19,7 @@ db.on('connect', function () {
 });
 
 var vendors = db.collection('vendors');
+var products = db.collection('products');
 
 var exports = module.exports;
 exports.saveVendor = function (vendor, callback) {
@@ -48,6 +49,14 @@ exports.findVendors = function (callback) {
         } else callback(null, docs);
     });
 }
+exports.findProducts = function (callback) {
+    db.products.find(function (err, docs) {
+        if (err) {
+            console.log("DB ERROR: ", err);
+            callback(null, err);
+        } else callback(null, docs);
+    });
+}
 exports.findVendorByEmail = function (req, callback) {
     db.vendors.findOne({
         email: req.body.email
@@ -60,7 +69,6 @@ exports.findVendorByEmail = function (req, callback) {
         }
     });
 }
-var products = db.collection('products');
 exports.saveProduct = function (product, callback) {
     db.products.save({
             vendor: product.body.email,

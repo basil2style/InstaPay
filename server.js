@@ -28,11 +28,6 @@ app.get('/', function (req, res) {
         `Server endpoint: http://${ip}:${port}/product :Add product\n` +
         `Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect\n`;
 
-        console.log(``);
-    console.log(``);
-    console.log(``);
-    console.log(``);
-
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
     res.send(response);
@@ -103,12 +98,23 @@ app.post('/product', function (req, res) {
     }
 });
 
-app.get('/info', function (req, res) {
-    var response;
-    response = `Server home: http://${ip}:${port}/`;
+app.get('/vendors', function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
-    res.send(response);
+    db.findVendors(function(err, docs) {
+        if (!err)
+            res.send(JSON.stringify(docs, null, 2));
+        else res.send("ERROR");
+    });
+});
+app.get('/products', function (req, res) {
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(200);
+    db.findVendors(function(err, docs) {
+        if (!err)
+            res.send(JSON.stringify(docs, null, 2));
+        else res.send("ERROR");
+    });
 });
 
 app.listen(port, ip, function() {
