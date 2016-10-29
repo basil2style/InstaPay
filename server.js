@@ -7,7 +7,12 @@ bodyParser = require('body-parser');
 crypto = require('crypto'),
 db = require('./db.js');
 
-app.use(session({secret: 'session secret key'}));
+app.use(session({
+    secret: 'session secret key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: !true }
+}));
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
