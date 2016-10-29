@@ -17,8 +17,8 @@ app.post('/vendors', function (req, res) {
     if (req.body.register) {
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
-        var passHashBinary = crypto.pbkdf2Sync(req.body.password, req.body.email, 100000, 512, 'sha512');
-        req.body.password = passHashBinary.digest('hex');
+        req.body.password = new Buffer(crypto.pbkdf2Sync(
+                req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
         db.saveVendor(req, function(err) {
             if (err) res.send("Error saving vendor: ", err);
             else res.send("Vendor saved successfully.");
@@ -27,8 +27,8 @@ app.post('/vendors', function (req, res) {
     else if (req.body.login) {
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
-        var passHashBinary = crypto.pbkdf2Sync(req.body.password, req.body.email, 100000, 512, 'sha512');
-        req.body.password = passHashBinary.digest('hex');
+        req.body.password = new Buffer(crypto.pbkdf2Sync(
+                req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
         db.findVendorByEmail(req, function(err, doc) {
             console.log("DOC: ", doc.password.buffer);
             console.log("PASS: ", req.body.password);
