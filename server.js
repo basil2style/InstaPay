@@ -30,8 +30,6 @@ app.post('/vendors', function (req, res) {
         req.body.password = new Buffer(crypto.pbkdf2Sync(
                 req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
         db.findVendorByEmail(req, function(err, doc) {
-            console.log("DOC: ", doc.password);
-            console.log("PASS: ", req.body.password);
             if (err || !doc) res.send("Vendor not registered ", err);
             else if (doc.password === req.body.password) res.send("Login success.");
             else res.send("Invalid login.");
@@ -39,14 +37,10 @@ app.post('/vendors', function (req, res) {
     }
 });
 
-app.get('/vendors', function (req, res) {
-    res.setHeader('Content-Type', 'text/plain');
+app.get('/login', function (req, res) {
+    res.setHeader('Content-Type', 'text/htlm');
     res.status(200);
-    db.findVendors(function (err, docs) {
-        if (!err)
-            res.send(JSON.stringify(docs, null, 2));
-        else res.send("Error finding vendors: ", err);
-    });
+    res.render('login.html');
 });
 
 app.get('/info', function (req, res) {
