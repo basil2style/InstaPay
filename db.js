@@ -10,7 +10,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
             process.env.OPENSHIFT_APP_NAME;
 }
 
-var db = mongojs(mongodb, ['vendors']);
+var db = mongojs(mongodb, ['vendors', 'products']);
 db.on('error', function (err) {
     console.log('DATABASE ERROR: ', err);
 });
@@ -48,7 +48,6 @@ exports.findVendors = function (callback) {
         } else callback(null, docs);
     });
 }
-
 exports.findVendorByEmail = function (req, callback) {
     db.vendors.findOne({
         email: req.body.email
@@ -59,5 +58,22 @@ exports.findVendorByEmail = function (req, callback) {
         } else {
             callback(null, doc);
         }
+    });
+}
+var products = db.collection('products');
+exports.saveProduct = function (product, callback) {
+    db.products.save({
+            pID: product.body.product_id,
+            pName: product.body.product_name,
+            pPrice: product.body.product_price
+        }, function(err, saved) {
+            if (err || !saved) {
+                console.log("Product not saved ", err);
+                callback(null, err);
+            }
+            else {
+                console.log("Product saved");
+                callback(null, saved);
+            }
     });
 }
