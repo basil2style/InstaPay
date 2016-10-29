@@ -110,7 +110,7 @@ app.get('/vendors', function (req, res) {
 app.get('/products', function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
-    db.findVendors(function(err, docs) {
+    db.findProducts(function(err, docs) {
         if (!err)
             res.send(JSON.stringify(docs, null, 2));
         else res.send("ERROR");
