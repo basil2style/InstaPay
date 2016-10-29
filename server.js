@@ -26,7 +26,9 @@ app.get('/', function (req, res) {
         `Server endpoint: http://${ip}:${port}/login :Login vendor\n` +
         `Server endpoint: http://${ip}:${port}/register :Register vendor\n` +
         `Server endpoint: http://${ip}:${port}/product :Add product\n` +
-        `Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect\n`;
+        `Server endpoint: http://${ip}:${port}/products :Show all added products` +
+        `Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect\n` +
+        `Server endpoint: http://${ip}:${port}/vendors :Show all registered vendors`;
 
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
@@ -122,6 +124,8 @@ app.listen(port, ip, function() {
     console.log(`Server endpoint: http://${ip}:${port}/login :Login vendor`);
     console.log(`Server endpoint: http://${ip}:${port}/register :Register vendor`);
     console.log(`Server endpoint: http://${ip}:${port}/product :Add product`);
+    console.log(`Server endpoint: http://${ip}:${port}/products :Show all added products`);
     console.log(`Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect`);
+    console.log(`Server endpoint: http://${ip}:${port}/vendors :Show all registered vendors`);
 });
 
