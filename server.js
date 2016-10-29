@@ -21,6 +21,22 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 app.set('view engine', 'pug');
 
+app.get('/', function (req, res) {
+    var response = `Server home: http://${ip}:${port}/\n` + 
+        `Server endpoint: http://${ip}:${port}/login :Login vendor\n` +
+        `Server endpoint: http://${ip}:${port}/register :Register vendor\n` +
+        `Server endpoint: http://${ip}:${port}/product :Add product\n` +
+        `Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect\n`;
+
+        console.log(``);
+    console.log(``);
+    console.log(``);
+    console.log(``);
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(200);
+    res.send(response);
+});
 app.get('/login', function (req, res) {
     var sess = req.session;
     if (sess.email) {
@@ -97,4 +113,9 @@ app.get('/info', function (req, res) {
 
 app.listen(port, ip, function() {
     console.log(`\nServer home: http://${ip}:${port}/`);
+    console.log(`Server endpoint: http://${ip}:${port}/login :Login vendor`);
+    console.log(`Server endpoint: http://${ip}:${port}/register :Register vendor`);
+    console.log(`Server endpoint: http://${ip}:${port}/product :Add product`);
+    console.log(`Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect`);
 });
+
