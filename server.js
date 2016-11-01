@@ -124,17 +124,19 @@ app.get('/products', function (req, res) {
 app.get('/products/:id', function (req, res) {
     db.findProducts(function(err, docs) {
         if (!err) {
+            var found = false;
             for (doc of docs) {
                 if (req.params.id == doc.pID) {            
                     res.setHeader('Access-Control-Allow-Origin', '*');
                     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
                     res.status(200);
                     res.send(JSON.stringify(doc, null, 2));
+                    found = true;
                 }
-                else {
-                    res.status(200);
-                    res.send("Product not found.");
-                }
+            }
+            if (!found) {
+                res.status(200);
+                res.send('Product not found.');
             }
         }
         else res.send("ERROR");
