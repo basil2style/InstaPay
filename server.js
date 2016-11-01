@@ -101,11 +101,16 @@ app.post('/product', function (req, res) {
 });
 
 app.get('/vendors', function (req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200);
     db.findVendors(function(err, docs) {
-        if (!err)
+        if (!err) {
+            res.set({
+              'Content-Type': 'application/json',
+              'Content-Length': Object.keys(docs).length,
+              'Access-Control-Allow-Origin': '*'
+            });
+            res.status(200);
             res.send(JSON.stringify(docs, null, 2));
+        }
         else res.send("ERROR");
     });
 });
