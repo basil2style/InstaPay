@@ -121,6 +121,22 @@ app.get('/products', function (req, res) {
     });
 });
 
+app.get('/products/:id', function (req, res) {
+    db.findProducts(function(err, docs) {
+        if (!err) {
+            for (doc of docs) {
+                if (req.params.id == doc.pID) {            
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
+                    res.status(200);
+                    res.send(JSON.stringify(doc, null, 2));
+                }
+            }
+        }
+        else res.send("ERROR");
+    });
+});
+
 app.listen(port, ip, function() {
     console.log(`\nServer home: http://${ip}:${port}/`);
     console.log(`Server endpoint: http://${ip}:${port}/login :Login vendor`);
