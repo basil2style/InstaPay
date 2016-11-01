@@ -126,11 +126,12 @@ app.get('/products/:id', function (req, res) {
         if (!err) {
             var found = false;
             for (doc of docs) {
-                if (req.params.id == doc.pID) {            
+                if (req.params.id == doc.pID) {
+                    res.setHeader('Content-Type', 'application/json');
                     res.setHeader('Access-Control-Allow-Origin', '*');
                     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
                     res.status(200);
-                    res.send(JSON.stringify(doc, null, 2));
+                    res.send(doc);
                     found = true;
                 }
             }
