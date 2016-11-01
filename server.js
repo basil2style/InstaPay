@@ -103,9 +103,8 @@ app.post('/product', function (req, res) {
 app.get('/vendors', function (req, res) {
     db.findVendors(function(err, docs) {
         if (!err) {
-            res.set({
-              'Access-Control-Allow-Origin': '*'
-            });
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
             res.status(200);
             res.send(JSON.stringify(docs, null, 2));
         }
