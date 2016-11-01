@@ -104,8 +104,6 @@ app.get('/vendors', function (req, res) {
     db.findVendors(function(err, docs) {
         if (!err) {
             res.set({
-              'Content-Type': 'application/json',
-              'Content-Length': Object.keys(docs).length,
               'Access-Control-Allow-Origin': '*'
             });
             res.status(200);
