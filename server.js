@@ -131,6 +131,10 @@ app.get('/products/:id', function (req, res) {
                     res.status(200);
                     res.send(JSON.stringify(doc, null, 2));
                 }
+                else {
+                    res.status(200);
+                    res.send("Product not found.");
+                }
             }
         }
         else res.send("ERROR");
