@@ -103,8 +103,6 @@ app.post('/product', function (req, res) {
 app.get('/vendors', function (req, res) {
     db.findVendors(function(err, docs) {
         if (!err) {
-            res.setHeader("Access-Control-Allow-Origin", "*");
-            res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
             res.status(200);
             res.send(JSON.stringify(docs, null, 2));
         }
@@ -112,11 +110,13 @@ app.get('/vendors', function (req, res) {
     });
 });
 app.get('/products', function (req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200);
     db.findProducts(function(err, docs) {
-        if (!err)
+        if (!err) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
+            res.status(200);
             res.send(JSON.stringify(docs, null, 2));
+        }
         else res.send("ERROR");
     });
 });
