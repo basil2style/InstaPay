@@ -24,12 +24,14 @@ var products = db.collection('products');
 var exports = module.exports;
 exports.saveVendor = function (vendor, callback) {
     db.vendors.save({
-            name: vendor.body.name,
+            first_name: vendor.body.fname,
+            last_name: vendor.body.lname,
             email: vendor.body.email,
-            phone: vendor.body.phone,
-            companyName: vendor.body.company_name,
-            companyAddr: vendor.body.company_addr,
-            password: vendor.body.password
+            password: vendor.body.password,
+            company_name: vendor.body.companyname,
+            company_addr: vendor.body.companyaddr,
+            postal_code: vendor.body.pcode,
+            phone: vendor.body.phone
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Vendor not saved ", err);
@@ -72,9 +74,9 @@ exports.findVendorByEmail = function (req, callback) {
 exports.saveProduct = function (product, callback) {
     db.products.save({
             vendor: product.body.email,
-            pID: product.body.product_id,
-            pName: product.body.product_name,
-            pPrice: product.body.product_price
+            product_id: product.body.productid,
+            name: product.body.productname,
+            price: product.body.productprice
         }, function(err, saved) {
             if (err || !saved) {
                 console.log("Product not saved ", err);

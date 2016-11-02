@@ -1,11 +1,16 @@
 var express = require('express'),
 session = require('express-session'),
 app = express(),
-port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
 bodyParser = require('body-parser');
 crypto = require('crypto'),
 db = require('./db.js');
+
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
+CRYPTO_ITERATIONS = 10000,
+CRYPTO_KEY_LENGTH = 512,
+CRYPTO_DIGEST = 'sha512',
+CRYPTO_STRING_TYPE = 'base64';
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
@@ -58,7 +63,12 @@ app.post('/vendor', function (req, res) {
         res.setHeader('Content-Type', 'text/text');
         res.status(200);
         req.body.password = new Buffer(crypto.pbkdf2Sync(
-                req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
+                req.body.password,
+                req.body.email,
+                CRYPTO_ITERATIONS,
+                CRYPTO_KEY_LENGTH,
+                CRYPTO_DIGEST
+            ), 'binary').toString(CRYPTO_STRING_TYPE);
         db.saveVendor(req, function(err) {
             if (err) res.send("Error saving vendor: ", err);
             else res.send("Vendor saved successfully.");
@@ -72,7 +82,12 @@ app.post('/vendor', function (req, res) {
             res.setHeader('Content-Type', 'text/text');
             res.status(200);
             req.body.password = new Buffer(crypto.pbkdf2Sync(
-                    req.body.password, req.body.email, 100000, 512, 'sha512'), 'binary').toString('base64');
+                    req.body.password,
+                    req.body.email,
+                    CRYPTO_ITERATIONS,
+                    CRYPTO_KEY_LENGTH,
+                    CRYPTO_DIGEST
+                ), 'binary').toString(CRYPTO_STRING_TYPE);
             db.findVendorByEmail(req, function(err, doc) {
                 if (err || !doc) res.send("Vendor not registered ", err);
                 else if (doc.password === req.body.password) {
