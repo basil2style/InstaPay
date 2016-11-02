@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 app.set('view engine', 'pug');
 
-app.use("/", express.static(__dirname + '/views'));
+app.use('/', express.static(__dirname + '/views'));
 
 app.get('/login', function (req, res) {
     var sess = req.session;
@@ -34,6 +34,11 @@ app.get('/login', function (req, res) {
         res.redirect('/product');
     } else res.render('login');
 });
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/');
+});
+
 app.get('/register', function (req, res) {
     var sess = req.session;
     if (sess.email) {
