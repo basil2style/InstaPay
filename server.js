@@ -39,6 +39,7 @@ app.get('/', function (req, res) {
     res.status(200);
     res.send(response);
 });
+app.use("/", express.static(__dirname+'/views'));
 app.get('/login', function (req, res) {
     var sess = req.session;
     if (sess.email) {

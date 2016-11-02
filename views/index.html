@@ -9,7 +9,7 @@
     <meta name="author" content="Priyank Vasa">
 
     <link rel="icon" href="views/assets/favicon.png">
-    <title>Vendor register</title>
+    <title>InstaPay home</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -48,49 +48,15 @@
 			<li><a href="#">Page 3</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 		</ul>
 		</div>
 	</div>
 	</nav>
 
     <div class="container">
-
-        <form method="POST" action="https://instapay-animus.rhcloud.com/vendors">
-
-            <input name="register" value="register" type="hidden">
-
-            <label for="fname" class="sr-only">First name</label>
-            <input name="fname" type="text" id="fname" class="form-control" placeholder="First name" required autofocus>
-
-            <label for="lname" class="sr-only">Last name</label>
-            <input name="lname" type="text" id="lname" class="form-control" placeholder="Last name" required>
-
-            <label for="email" class="sr-only">Email address</label>
-            <input name="email" type="email" id="email" class="form-control" placeholder="Email address" required>
-
-            <label for="password" class="sr-only">Password</label>
-            <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
-
-            <label for="cpassword" class="sr-only">Confirm password</label>
-            <input name="cpassword" type="password" id="cpassword" class="form-control" placeholder="Confirm password" required>
-
-            <label for="companyname" class="sr-only">Company name</label>
-            <input name="companyname" type="text" id="companyname" class="form-control" placeholder="Company name" required>
-
-            <label for="companyaddr" class="sr-only">Company address</label>
-            <input name="companyaddr" type="text" id="companyaddr" class="form-control" placeholder="Company address" required>
-
-            <label for="pcode" class="sr-only">Postal code</label>
-            <input name="pcode" type="text" id="pcode" class="form-control" placeholder="Postal code" required>
-
-            <label for="phone" class="sr-only">Telephone #</label>
-            <input name="phone" type="tel" id="phone" class="form-control" placeholder="Telephone #" required>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
-
+        <h2> Welcome to InstaPay </h2>
     </div>
     <!-- /container -->
 
