@@ -26,20 +26,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 app.set('view engine', 'pug');
 
-app.get('/', function (req, res) {
-    var response = `Server home: http://${ip}:${port}/\n` + 
-        `Server endpoint: http://${ip}:${port}/login :Login vendor\n` +
-        `Server endpoint: http://${ip}:${port}/register :Register vendor\n` +
-        `Server endpoint: http://${ip}:${port}/product :Add product\n` +
-        `Server endpoint: http://${ip}:${port}/products :Show all added products` +
-        `Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect\n` +
-        `Server endpoint: http://${ip}:${port}/vendors :Show all registered vendors`;
+app.use("/", express.static(__dirname + '/views'));
 
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200);
-    res.send(response);
-});
-app.use("/", express.static(__dirname+'/views'));
 app.get('/login', function (req, res) {
     var sess = req.session;
     if (sess.email) {
