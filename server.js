@@ -12,12 +12,19 @@ CRYPTO_KEY_LENGTH = 512,
 CRYPTO_DIGEST = 'sha512',
 CRYPTO_STRING_TYPE = 'base64';
 
-app.set('trust proxy', 1) // trust first proxy
+var helmet = require('helmet');
+app.use(helmet());
+
 app.use(session({
+    name: 'instapaysession',
     secret: 'keyword dog',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: {
+        secure: true,
+        domain: 'rhcloud.com',
+        expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+    }
 }));
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
