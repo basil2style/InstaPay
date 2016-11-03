@@ -15,6 +15,7 @@ CRYPTO_STRING_TYPE = 'base64';
 var helmet = require('helmet');
 app.use(helmet());
 
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     name: 'instapaysession',
     secret: 'keyword dog',
@@ -22,8 +23,9 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         secure: true,
-        domain: 'rhcloud.com',
-        expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+        expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+        domain: rhcloud.com,
+        httpOnly: true
     }
 }));
 
