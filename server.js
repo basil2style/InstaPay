@@ -92,6 +92,7 @@ app.post('/vendor', function (req, res) {
         db.findVendorByEmail(req, function(err, doc) {
             if (err || !doc) res.send("Vendor not registered ", err);
             else if (doc.password === req.body.password) {
+                var sess = req.session;
                 sess.email = req.body.email;
                 res.render("product");
             }
