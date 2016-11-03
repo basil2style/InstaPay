@@ -28,7 +28,7 @@ app.set('view engine', 'pug');
 
 app.use('/css', express.static(__dirname + '/views/css'));
 app.use('/js', express.static(__dirname + '/views/js'));
-app.use('/assests', express.static(__dirname + '/views/assests'));
+app.use('/assets', express.static(__dirname + '/views/assets'));
 app.use('/views', function (req, res, next) {
     res.redirect('/');
     next();
