@@ -14,10 +14,10 @@ CRYPTO_STRING_TYPE = 'base64';
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+    secret: 'keyword dog',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
 }));
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -26,34 +26,32 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 app.set('view engine', 'pug');
 
-app.use('/', express.static(__dirname + '/views'));
 app.use('/views', function (req, res, next) {
-    res.redirect('/'); //Or just do what you want to
+    res.redirect('/');
     next();
 });
 
+app.get('/', function (req, res) {
+    var sess = req.session;
+    if (sess.email) {
+        res.render('product');
+    } else res.render('index');
+});
 app.get('/login', function (req, res) {
     var sess = req.session;
     if (sess.email) {
-        res.redirect('/product');
+        res.render('product');
     } else res.render('login');
 });
 app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/');
 });
-
 app.get('/register', function (req, res) {
     var sess = req.session;
     if (sess.email) {
-        res.redirect('/product');
+        res.render('product');
     } else res.render('register');
-});
-app.get('/product', function (req, res) {
-    var sess = req.session;
-    if (!sess.email) {
-        res.redirect('/login');
-    } else res.render('product');
 });
 
 app.post('/vendor', function (req, res) {
@@ -68,33 +66,26 @@ app.post('/vendor', function (req, res) {
                 CRYPTO_DIGEST
             ), 'binary').toString(CRYPTO_STRING_TYPE);
         db.saveVendor(req, function(err) {
-            if (err) res.send("Error saving vendor: ", err);
-            else res.send("Vendor saved successfully.");
+            if (err) res.send("Error");
+            else res.send("Registration successful.");
         });
     }
     else if (req.body.login) {
-        var sess = req.session;
-        if (sess.email) {
-            res.redirect('/product');
-        } else {
-            res.setHeader('Content-Type', 'text/text');
-            res.status(200);
-            req.body.password = new Buffer(crypto.pbkdf2Sync(
-                    req.body.password,
-                    req.body.email,
-                    CRYPTO_ITERATIONS,
-                    CRYPTO_KEY_LENGTH,
-                    CRYPTO_DIGEST
-                ), 'binary').toString(CRYPTO_STRING_TYPE);
-            db.findVendorByEmail(req, function(err, doc) {
-                if (err || !doc) res.send("Vendor not registered ", err);
-                else if (doc.password === req.body.password) {
-                    sess.email = req.body.email;
-                    res.redirect("/product");
-                }
-                else res.send("Invalid login.");
-            });
-        }
+        req.body.password = new Buffer(crypto.pbkdf2Sync(
+                req.body.password,
+                req.body.email,
+                CRYPTO_ITERATIONS,
+                CRYPTO_KEY_LENGTH,
+                CRYPTO_DIGEST
+            ), 'binary').toString(CRYPTO_STRING_TYPE);
+        db.findVendorByEmail(req, function(err, doc) {
+            if (err || !doc) res.send("Vendor not registered ", err);
+            else if (doc.password === req.body.password) {
+                sess.email = req.body.email;
+                res.render("product");
+            }
+            else res.render("login");
+        });
     }
 });
 
