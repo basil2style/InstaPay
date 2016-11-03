@@ -26,6 +26,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 app.set('view engine', 'pug');
 
+app.use('/css', express.static(path.join(__dirname, 'views/css')));
+app.use('/js', express.static(path.join(__dirname, 'views/js')));
+app.use('/assests', express.static(path.join(__dirname, 'views/assests')));
 app.use('/views', function (req, res, next) {
     res.redirect('/');
     next();
