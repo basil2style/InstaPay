@@ -24,7 +24,6 @@ app.use(session({
     cookie: {
         secure: true,
         expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-        domain: rhcloud.com,
         httpOnly: true
     }
 }));
