@@ -10,7 +10,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
             process.env.OPENSHIFT_APP_NAME;
 }
 
-var db = mongojs(mongodb, ['vendors', 'products']);
+var db = mongojs(mongodb, ['vendors', 'products', 'users']);
 db.on('error', function (err) {
     console.log('DATABASE ERROR: ', err);
 });
@@ -84,6 +84,27 @@ exports.saveProduct = function (product, callback) {
             }
             else {
                 console.log("Product saved");
+                callback(null, saved);
+            }
+    });
+}
+exports.saveUser = function (user, callback) {
+    db.users.save({
+            first_name: user.body.fname,
+            last_name: user.body.lname,
+            email: user.body.email,
+            username: user.body.username,
+            password: user.body.password,
+            home_addr: user.body.homeaddr,
+            postal_code: user.body.pcode,
+            phone: user.body.phone
+        }, function(err, saved) {
+            if (err || !saved) {
+                console.log("User not saved ", err);
+                callback(null, err);
+            }
+            else {
+                console.log("User saved");
                 callback(null, saved);
             }
     });

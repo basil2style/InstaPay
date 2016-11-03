@@ -3,11 +3,23 @@
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
 }
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 50px;
+}
 form {
-    margin: 10vw;
-    padding-left: 16vw;
-    padding-right: 16vw;
+    margin-top: 10vw;
+    padding-left: 30vw;
+    padding-right: 30vw;
 }
 input {
     margin-bottom: 0.8em;
+}
+/* Portrait and Landscape */
+@media only screen and (max-width: 768px) {
+    form {
+        padding-left: 10vw;
+        padding-right: 10vw;
+    }
 }

@@ -94,6 +94,46 @@ app.post('/vendor', function (req, res) {
     }
 });
 
+app.post('/user', function (req, res) {
+    if (req.body.register) {
+        req.body.password = new Buffer(crypto.pbkdf2Sync(
+                req.body.password,
+                req.body.email,
+                CRYPTO_ITERATIONS,
+                CRYPTO_KEY_LENGTH,
+                CRYPTO_DIGEST
+            ), 'binary').toString(CRYPTO_STRING_TYPE);
+        db.saveUser(req, function(err) {
+            if (err) res.send(err);
+            else res.send(1);
+        });
+    }
+    else if (req.body.login) {
+        var sess = req.session;
+        if (sess.email) {
+            res.redirect('/product');
+        } else {
+            res.setHeader('Content-Type', 'text/text');
+            res.status(200);
+            req.body.password = new Buffer(crypto.pbkdf2Sync(
+                    req.body.password,
+                    req.body.email,
+                    CRYPTO_ITERATIONS,
+                    CRYPTO_KEY_LENGTH,
+                    CRYPTO_DIGEST
+                ), 'binary').toString(CRYPTO_STRING_TYPE);
+            db.findVendorByEmail(req, function(err, doc) {
+                if (err || !doc) res.send("Vendor not registered ", err);
+                else if (doc.password === req.body.password) {
+                    sess.email = req.body.email;
+                    res.redirect("/product");
+                }
+                else res.send("Invalid login.");
+            });
+        }
+    }
+});
+
 app.post('/product', function (req, res) {
     var sess = req.session;
     if (!sess.email) {
