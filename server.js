@@ -27,6 +27,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.set('view engine', 'pug');
 
 app.use('/', express.static(__dirname + '/views'));
+app.use('/views', function (req, res, next) {
+    res.redirect('/'); //Or just do what you want to
+    next();
+});
 
 app.get('/login', function (req, res) {
     var sess = req.session;
