@@ -120,7 +120,7 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: true
                 });
-                console.log('success' + response);
+                console.log('success' + JSON.stringify(response));
                 res.send(response);
             }
             else {
@@ -128,7 +128,7 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: false
                 });
-                console.log('failure' + response);
+                console.log('failure' + JSON.stringify(response));
                 res.send(response);
             }
         });
