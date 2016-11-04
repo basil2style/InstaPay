@@ -128,9 +128,9 @@ app.post('/user', function (req, res) {
             if (err || !doc) res.send("User not registered ", err);
             else if (doc.password === req.body.password) {
                 req.body.success = true;
-                res.send(req);
+                res.send(JSON.stringify(req));
             }
-            else res.send(req);
+            else res.send(JSON.stringify(req));
         });
     }
 });
