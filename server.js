@@ -113,7 +113,7 @@ app.post('/user', function (req, res) {
             ), 'binary').toString(CRYPTO_STRING_TYPE);
         db.saveUser(req, function(err) {
             if (err) res.send(err);
-            else res.send(1);
+            else res.send('1');
         });
     }
     else if (req.body.login) {
