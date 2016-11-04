@@ -117,13 +117,6 @@ app.post('/user', function (req, res) {
         });
     }
     else if (req.body.lor == 'login') {
-        req.body.password = new Buffer(crypto.pbkdf2Sync(
-                req.body.password,
-                req.body.email,
-                CRYPTO_ITERATIONS,
-                CRYPTO_KEY_LENGTH,
-                CRYPTO_DIGEST
-            ), 'binary').toString(CRYPTO_STRING_TYPE);
         db.findUserByEmail(req, function(err, doc) {
             if (err || !doc) res.send("User not registered ", err);
             else if (doc.password === req.body.password) {
@@ -131,7 +124,9 @@ app.post('/user', function (req, res) {
                 req.body.success = true;
                 res.send(JSON.stringify(req, null, 2));
             }
-            else res.sendStatus(500);
+            else {
+                res.send(JSON.stringify(req, null, 2));
+            }
         });
     }
 });
