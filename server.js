@@ -127,7 +127,10 @@ app.post('/user', function (req, res) {
         db.findUserByEmail(req, function(err, doc) {
             if (err || !doc) res.send("User not registered ", err);
             else if (doc.password === req.body.password) {
-                res.send("1");
+                var json = JSON.stringify({ 
+                    success: 1,
+                });
+                res.send(json);
             }
             else res.send("0");
         });
