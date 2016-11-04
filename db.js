@@ -109,3 +109,15 @@ exports.saveUser = function (user, callback) {
             }
     });
 }
+exports.findUserByEmail = function (req, callback) {
+    db.users.findOne({
+        email: req.body.email
+    }, function(err, doc) {
+        if (err || !doc) {
+            console.log("DB ERROR: ", err);
+            callback(null, err);
+        } else {
+            callback(null, doc);
+        }
+    });
+}

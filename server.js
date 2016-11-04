@@ -103,7 +103,7 @@ app.post('/vendor', function (req, res) {
 
 app.post('/user', function (req, res) {
     console.log(req);
-    if (req.body.register) {
+    if (req.body.lor == 'register') {
         req.body.password = new Buffer(crypto.pbkdf2Sync(
                 req.body.password,
                 req.body.email,
@@ -116,29 +116,21 @@ app.post('/user', function (req, res) {
             else res.send('1');
         });
     }
-    else if (req.body.login) {
-        var sess = req.session;
-        if (sess.email) {
-            res.redirect('/product');
-        } else {
-            res.setHeader('Content-Type', 'text/text');
-            res.status(200);
-            req.body.password = new Buffer(crypto.pbkdf2Sync(
-                    req.body.password,
-                    req.body.email,
-                    CRYPTO_ITERATIONS,
-                    CRYPTO_KEY_LENGTH,
-                    CRYPTO_DIGEST
-                ), 'binary').toString(CRYPTO_STRING_TYPE);
-            db.findVendorByEmail(req, function(err, doc) {
-                if (err || !doc) res.send("Vendor not registered ", err);
-                else if (doc.password === req.body.password) {
-                    sess.email = req.body.email;
-                    res.redirect("/product");
-                }
-                else res.send("Invalid login.");
-            });
-        }
+    else if (req.body.lor == 'login') {
+        req.body.password = new Buffer(crypto.pbkdf2Sync(
+                req.body.password,
+                req.body.email,
+                CRYPTO_ITERATIONS,
+                CRYPTO_KEY_LENGTH,
+                CRYPTO_DIGEST
+            ), 'binary').toString(CRYPTO_STRING_TYPE);
+        db.findUserByEmail(req, function(err, doc) {
+            if (err || !doc) res.send("User not registered ", err);
+            else if (doc.password === req.body.password) {
+                res.send("1");
+            }
+            else res.send("0");
+        });
     }
 });
 
