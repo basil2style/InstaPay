@@ -126,14 +126,14 @@ app.post('/user', function (req, res) {
                     success: true
                 });
                 res.status(200);
-                res.send(JSON.stringify(response));
+                res.send(response);
             }
             else {
                 var response = JSON.stringify({ 
                     email: req.body.email,
                     success: false
                 });
-                res.send(JSON.stringify(response));
+                res.send(response);
             }
         });
     }
