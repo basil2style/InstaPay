@@ -118,6 +118,8 @@ app.post('/user', function (req, res) {
     }
     else if (req.body.lor == 'login') {
         db.findUserByEmail(req, function(err, doc) {
+            console.log('REQ:' + req.body.password);
+            console.log('DOC: ' + doc);
             if (err || !doc) res.send("User not registered ", err);
             else if (doc.password === req.body.password) {
                 res.status(200);
