@@ -126,6 +126,7 @@ app.post('/user', function (req, res) {
                     success: true
                 });
                 res.status(200);
+                console.log('success' + response);
                 res.send(response);
             }
             else {
@@ -133,6 +134,7 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: false
                 });
+                console.log('failure' + response);
                 res.send(response);
             }
         });
