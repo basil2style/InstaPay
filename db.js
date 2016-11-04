@@ -90,13 +90,13 @@ exports.saveProduct = function (product, callback) {
 }
 exports.saveUser = function (user, callback) {
     db.users.save({
-            first_name: user.body.fname,
-            last_name: user.body.lname,
+            first_name: user.body.first_name,
+            last_name: user.body.last_name,
             email: user.body.email,
-            username: user.body.username,
+            user_name: user.body.user_name,
             password: user.body.password,
-            home_addr: user.body.homeaddr,
-            postal_code: user.body.pcode,
+            home_addr: user.body.home_addr,
+            postal_code: user.body.postal_code,
             phone: user.body.phone
         }, function(err, saved) {
             if (err || !saved) {
