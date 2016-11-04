@@ -120,7 +120,6 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: true
                 });
-                res.status(200);
                 console.log('success' + response);
                 res.send(response);
             }
