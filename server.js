@@ -122,11 +122,13 @@ app.post('/user', function (req, res) {
             else if (doc.password === req.body.password) {
                 res.status(200);
                 req.body.success = true;
+                console.log(req);
                 var resp = JSON.stringify(req, null, 2);
                 console.log(resp);
                 res.send(resp);
             }
             else {
+                console.log(req);
                 var resp = JSON.stringify(req, null, 2);
                 console.log(resp);
                 res.send(resp);
