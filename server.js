@@ -104,13 +104,6 @@ app.post('/vendor', function (req, res) {
 app.post('/user', function (req, res) {
     console.log(req);
     if (req.body.lor == 'register') {
-        req.body.password = new Buffer(crypto.pbkdf2Sync(
-                req.body.password,
-                req.body.email,
-                CRYPTO_ITERATIONS,
-                CRYPTO_KEY_LENGTH,
-                CRYPTO_DIGEST
-            ), 'binary').toString(CRYPTO_STRING_TYPE);
         db.saveUser(req, function(err) {
             if (err) res.send(err);
             else res.send('1');
