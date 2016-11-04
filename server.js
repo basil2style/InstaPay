@@ -121,17 +121,19 @@ app.post('/user', function (req, res) {
             if (err || !doc) res.send("User not registered ", err);
             else if (doc.password === req.body.password) {
                 res.status(200);
-                req.body.success = true;
-                console.log(req);
-                var resp = JSON.stringify(req, null, 2);
-                console.log(resp);
-                res.send(resp);
+                var response = JSON.stringify({ 
+                    email: req.body.email,
+                    success: true
+                });
+                res.status(200);
+                res.send(JSON.stringify(response));
             }
             else {
-                console.log(req);
-                var resp = JSON.stringify(req, null, 2);
-                console.log(resp);
-                res.send(resp);
+                var response = JSON.stringify({ 
+                    email: req.body.email,
+                    success: false
+                });
+                res.send(JSON.stringify(response));
             }
         });
     }
