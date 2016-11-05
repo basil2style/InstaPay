@@ -106,7 +106,13 @@ app.post('/user', function (req, res) {
     if (req.body.lor == 'register') {
         db.saveUser(req, function(err) {
             if (err) res.send(err);
-            else res.send('1');
+            else {
+                res.status(200);
+                var response = ({
+                    success: true
+                });
+                res.send(response);
+            }
         });
     }
     else if (req.body.lor == 'login') {
@@ -120,7 +126,6 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: true
                 });
-                console.log('success' + JSON.stringify(response));
                 res.send(response);
             }
             else {
@@ -128,7 +133,6 @@ app.post('/user', function (req, res) {
                     email: req.body.email,
                     success: false
                 });
-                console.log('failure' + JSON.stringify(response));
                 res.send(response);
             }
         });
