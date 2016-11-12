@@ -117,7 +117,14 @@ app.post('/user', function (req, res) {
     }
     else if (req.body.lor == 'login') {
         db.findUserByEmail(req, function(err, doc) {
-            if (err || !doc) res.send("User not registered ", err);
+            if (err) {
+                res.status(401);
+                var response = ({ 
+                    email: req.body.email,
+                    success: false
+                });
+                res.send(response);
+            }
             else if (doc.password === req.body.password) {
                 res.status(200);
                 var response = ({ 
@@ -127,7 +134,7 @@ app.post('/user', function (req, res) {
                 res.send(response);
             }
             else {
-                res.status(400);
+                res.status(401);
                 var response = ({ 
                     email: req.body.email,
                     success: false
@@ -206,4 +213,3 @@ app.listen(port, ip, function() {
     console.log(`Server endpoint: http://${ip}:${port}/vendor :Do login or do register and redirect`);
     console.log(`Server endpoint: http://${ip}:${port}/vendors :Show all registered vendors`);
 });
-
