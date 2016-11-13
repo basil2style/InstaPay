@@ -116,32 +116,9 @@ app.post('/user', function (req, res) {
         });
     }
     else if (req.body.lor == 'login') {
-        db.findUserByEmail(req, function(err, doc) {
-            if (err) {
-                res.status(401);
-                var response = ({ 
-                    email: req.body.email,
-                    success: false,
-                    err: 'Database error'
-                });
-                res.send(response);
-            } else if (!doc) {
-                res.status(401);
-                var response = ({ 
-                    email: req.body.email,
-                    success: false,
-                    err: 'Invalid login'
-                });
-                res.send(response);
-            }
-            else if (doc.password === req.body.password) {
-                res.status(200);
-                var response = ({ 
-                    email: req.body.email,
-                    success: true
-                });
-                res.send(response);
-            }
+        db.findUserByEmail(req, function(response) {
+            res.status(response.status);
+            res.send(response);
         });
     }
 });

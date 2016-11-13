@@ -113,11 +113,29 @@ exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
         email: req.body.email
     }, function(err, doc) {
-        if (err || !doc) {
-            console.log("DB ERROR: ", err);
-            callback(null, err);
+        var response;
+        if (err) {
+            console.log('DB ERROR: ', err);
+            response = ({ 
+                    email: req.body.email,
+                    success: false,
+                    err: 'Database error',
+                    status: 500
+                });
+        } else if (!doc) {
+            response = ({ 
+                    email: req.body.email,
+                    success: false,
+                    err: 'Invalid login',
+                    status: 401
+                });
         } else {
-            callback(null, doc);
+            response = ({ 
+                    email: req.body.email,
+                    success: true,
+                    status: 200
+                });
         }
+        callback(null, response);
     });
 }
