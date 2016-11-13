@@ -121,7 +121,16 @@ app.post('/user', function (req, res) {
                 res.status(401);
                 var response = ({ 
                     email: req.body.email,
-                    success: false
+                    success: false,
+                    err: 'Database error'
+                });
+                res.send(response);
+            } else if (!doc) {
+                res.status(401);
+                var response = ({ 
+                    email: req.body.email,
+                    success: false,
+                    err: 'Invalid login'
                 });
                 res.send(response);
             }
@@ -130,14 +139,6 @@ app.post('/user', function (req, res) {
                 var response = ({ 
                     email: req.body.email,
                     success: true
-                });
-                res.send(response);
-            }
-            else {
-                res.status(401);
-                var response = ({ 
-                    email: req.body.email,
-                    success: false
                 });
                 res.send(response);
             }
