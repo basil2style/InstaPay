@@ -90,13 +90,13 @@ exports.saveProduct = function (product, callback) {
 }
 exports.saveUser = function (user, callback) {
     db.users.save({
-            first_name: user.body.first_name,
-            last_name: user.body.last_name,
+            firstName: user.body.firstName,
+            lastName: user.body.lastName,
             email: user.body.email,
-            user_name: user.body.user_name,
+            userName: user.body.userName,
             password: user.body.password,
-            home_addr: user.body.home_addr,
-            postal_code: user.body.postal_code,
+            homeAddr: user.body.homeAddr,
+            postalCode: user.body.postalCode,
             phone: user.body.phone
         }, function(err, saved) {
             if (err || !saved) {
@@ -113,7 +113,7 @@ exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
         $or: [
             { email: req.email },
-            { user_name: req.user_name }
+            { userName: req.userName }
         ]
     }, function(err, doc) {
         if (err) {
