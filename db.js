@@ -112,7 +112,7 @@ exports.saveUser = function (user, callback) {
 exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
         $or: [
-            { email: req.email },
+            { email: req.email }, 
             { userName: req.userName }
         ]
     }, function(err, doc) {
