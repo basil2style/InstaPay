@@ -120,13 +120,13 @@ exports.findUserByEmail = function (req, callback) {
                     status: 500,
                     user: req
                 });
-        } else if (!doc || doc.password != req.body.password) {
+        } else if (!doc || doc.password != req.password) {
             req.err = 'Invalid login';
             response = ({
                     status: 401,
                     user: req
                 });
-        } else if (doc.password == req.body.password) {
+        } else if (doc.password == req.password) {
             req.success = true;
             response = ({
                     status: 200,
