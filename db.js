@@ -111,8 +111,10 @@ exports.saveUser = function (user, callback) {
 }
 exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
-        email: req.email,
-        user_name: req.user_name
+        $or: [
+            { email: req.email },
+            { user_name: req.user_name }
+        ]
     }, function(err, doc) {
         if (err) {
             console.log('DB ERROR: ', err);
