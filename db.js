@@ -99,10 +99,13 @@ exports.saveUser = function (user, callback) {
             postalCode: user.postalCode,
             phone: user.phone
         }, function(err, saved) {
-            if (err || !saved) {
-                console.log("USER NOT SAVED ", err);
+            if (err) {
+                console.log('DB ERROR: ', err);
+                user.err = 'Database error. Try after some time.';
+            } else if (!saved) {
                 user.err = 'Registration failed. Try again.';
-            } else {
+            } else if (saved) {
+                console.log('SAVED: ' + JSON.stringify(saved));
                 user.success = true;
             }
             callback(err);
