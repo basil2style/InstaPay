@@ -142,6 +142,6 @@ exports.findUserByEmail = function (req, callback) {
                     status: 200
                 });
         }
-        callback(null, response);
+        callback(response);
     });
 }
