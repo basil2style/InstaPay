@@ -105,7 +105,6 @@ exports.saveUser = function (user, callback) {
             } else if (!saved) {
                 user.err = 'Registration failed. Try again.';
             } else if (saved) {
-                console.log('SAVED: ' + JSON.stringify(saved));
                 user.success = true;
             }
             callback(user);
@@ -114,8 +113,8 @@ exports.saveUser = function (user, callback) {
 exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
         $or: [
-            { email: req.email }, 
-            { userName: req.userName }
+            { userName: req.userName }, 
+            { email: req.email }
         ]
     }, function(err, doc) {
         if (err) {
