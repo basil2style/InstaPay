@@ -118,6 +118,7 @@ app.post('/user', function (req, res) {
         db.findUserByEmail(req, function(response) {
             console.log('RESPONSE: ' + JSON.stringify(response));
             res.status(response.status);
+            response.status.destroy;
             res.send(response);
         });
     }
