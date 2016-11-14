@@ -116,23 +116,11 @@ exports.findUserByEmail = function (req, callback) {
         if (err) {
             console.log('DB ERROR: ', err);
             req.err = 'Database error';
-            response = ({
-                    status: 500,
-                    user: req
-                });
         } else if (!doc || doc.password != req.password) {
             req.err = 'Invalid login';
-            response = ({
-                    status: 401,
-                    user: req
-                });
         } else if (doc.password == req.password) {
             req.success = true;
-            response = ({
-                    status: 200,
-                    user: req
-                });
         }
-        callback(response);
+        callback(req);
     });
 }

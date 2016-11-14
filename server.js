@@ -117,9 +117,9 @@ app.post('/user', function (req, res) {
     else if (req.body.lor == 'l') {
         console.log('REQUEST: ' + JSON.stringify(req.body));
         db.findUserByEmail(req.body, function(response) {
+            delete response.password;
             res.status(200);
-            console.log('RESPONSE: ' + JSON.stringify(response));
-            res.send(response.user);
+            res.send(response);
         });
     }
 });
