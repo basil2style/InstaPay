@@ -90,23 +90,22 @@ exports.saveProduct = function (product, callback) {
 }
 exports.saveUser = function (user, callback) {
     db.users.save({
-            firstName: user.body.firstName,
-            lastName: user.body.lastName,
-            email: user.body.email,
-            userName: user.body.userName,
-            password: user.body.password,
-            homeAddr: user.body.homeAddr,
-            postalCode: user.body.postalCode,
-            phone: user.body.phone
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            userName: user.userName,
+            password: user.password,
+            homeAddr: user.homeAddr,
+            postalCode: user.postalCode,
+            phone: user.phone
         }, function(err, saved) {
             if (err || !saved) {
-                console.log("User not saved ", err);
-                callback(null, err);
+                console.log("USER NOT SAVED ", err);
+                user.err = 'Registration failed. Try again.';
+            } else {
+                user.success = true;
             }
-            else {
-                console.log("User saved");
-                callback(null, saved);
-            }
+            callback(err);
     });
 }
 exports.findUserByEmail = function (req, callback) {

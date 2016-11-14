@@ -103,20 +103,24 @@ app.post('/vendor', function (req, res) {
 
 app.post('/user', function (req, res) {
     if (req.body.lor == 'r') {
-        db.saveUser(req, function(err) {
-            if (err) res.send(err);
-            else {
-                res.status(200);
-                var response = ({
-                    success: true
-                });
-                res.send(response);
-            }
+        db.saveUser(req.body, function(response) {
+            delete response.lor;
+            delete response.firstName;
+            delete response.lastName;
+            delete response.userName;
+            delete response.password;
+            delete response.homeAddr;
+            delete response.postalCode;
+            delete response.phone;
+            res.status(200);
+            res.send(response);
         });
     }
     else if (req.body.lor == 'l') {
         console.log('REQUEST: ' + JSON.stringify(req.body));
         db.findUserByEmail(req.body, function(response) {
+            delete response.lor;
+            delete response.userName;
             delete response.password;
             res.status(200);
             res.send(response);
