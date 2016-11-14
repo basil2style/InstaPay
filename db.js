@@ -111,26 +111,26 @@ exports.saveUser = function (user, callback) {
 }
 exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
-        email: req.body.email
+        email: req.email
     }, function(err, doc) {
         if (err) {
             console.log('DB ERROR: ', err);
-            response = ({ 
-                    success: false,
-                    err: 'Database error',
-                    status: 500
+            req.err = 'Database error';
+            response = ({
+                    status: 500,
+                    user: req
                 });
         } else if (!doc || doc.password != req.body.password) {
+            req.err = 'Invalid login';
             response = ({
-                    success: false,
-                    err: 'Invalid login',
-                    status: 401
+                    status: 401,
+                    user: req
                 });
         } else if (doc.password == req.body.password) {
+            req.success = true;
             response = ({
-                    success: true,
-                    err: '',
-                    status: 200
+                    status: 200,
+                    user: req
                 });
         }
         callback(response);
