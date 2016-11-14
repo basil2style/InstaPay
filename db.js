@@ -122,17 +122,18 @@ exports.findUserByEmail = function (req, callback) {
                     err: 'Database error',
                     status: 500
                 });
-        } else if (!doc) {
-            response = ({ 
+        } else if (!doc || doc.password !== req.body.password) {
+            response = ({
                     email: req.body.email,
                     success: false,
                     err: 'Invalid login',
                     status: 401
                 });
-        } else {
+        } else if (doc.password === req.body.password) {
             response = ({ 
                     email: req.body.email,
                     success: true,
+                    err: '',
                     status: 200
                 });
         }

@@ -102,8 +102,7 @@ app.post('/vendor', function (req, res) {
 });
 
 app.post('/user', function (req, res) {
-    console.log(req);
-    if (req.body.lor == 'register') {
+    if (req.body.lor == 'r') {
         db.saveUser(req, function(err) {
             if (err) res.send(err);
             else {
@@ -115,7 +114,7 @@ app.post('/user', function (req, res) {
             }
         });
     }
-    else if (req.body.lor == 'login') {
+    else if (req.body.lor == 'l') {
         db.findUserByEmail(req, function(response) {
             console.log(JSON.stringify(response));
             res.status(response.status);
