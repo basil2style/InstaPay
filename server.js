@@ -116,9 +116,9 @@ app.post('/user', function (req, res) {
     }
     else if (req.body.lor == 'l') {
         db.findUserByEmail(req, function(response) {
-            console.log('RESPONSE: ' + JSON.stringify(response));
             res.status(response.status);
             response.status.destroy;
+            console.log('RESPONSE: ' + JSON.stringify(response));
             res.send(response);
         });
     }
