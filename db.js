@@ -111,6 +111,8 @@ exports.saveUser = function (user, callback) {
     });
 }
 exports.findUserByEmail = function (req, callback) {
+    console.log('EMAIL: ' + req.email);
+    console.log('USER_NAME: ' + req.userName);
     db.users.findOne({
         $or: [
             { userName: req.userName }, 
