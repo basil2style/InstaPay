@@ -108,7 +108,7 @@ exports.saveUser = function (user, callback) {
                 console.log('SAVED: ' + JSON.stringify(saved));
                 user.success = true;
             }
-            callback(err);
+            callback(user);
     });
 }
 exports.findUserByEmail = function (req, callback) {
