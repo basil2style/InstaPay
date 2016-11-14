@@ -111,13 +111,14 @@ exports.saveUser = function (user, callback) {
 }
 exports.findUserByEmail = function (req, callback) {
     db.users.findOne({
-        email: req.email
+        email: req.email,
+        user_name: req.user_name
     }, function(err, doc) {
         if (err) {
             console.log('DB ERROR: ', err);
-            req.err = 'Database error';
+            req.err = 'Database error. Try after some time.';
         } else if (!doc || doc.password != req.password) {
-            req.err = 'Invalid login';
+            req.err = 'Invalid login. Try again.';
         } else if (doc.password == req.password) {
             req.success = true;
         }
